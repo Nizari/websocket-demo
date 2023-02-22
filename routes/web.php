@@ -16,3 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/test', function () {
+    $user = \App\Models\User::first();
+    event(new \App\Events\UserUpdated($user));
+
+    return $user->id;
+});
+
+Auth::routes();
+
+Route::get('/chat', [App\Http\Controllers\ChatsController::class, 'index']);
+Route::get('/messages', [App\Http\Controllers\ChatsController::class, 'fetchMessages']);
+Route::post('/messages', [App\Http\Controllers\ChatsController::class, 'sendMessage']);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
