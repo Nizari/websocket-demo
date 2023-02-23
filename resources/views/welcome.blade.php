@@ -433,12 +433,12 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script>
+     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script type="module"> // the change is here
         Echo.channel('public')
             .listen('PublicEvent', (e) => {
-                document.getElementById('svg').setAttribute('fill', e.color);
-
+                document.getElementById('svg').setAttribute('fill', e.message);
+                console.log('resources/views/welcome.blade.php#441', e.message);
             });
     </script>
 </body>

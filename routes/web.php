@@ -2,6 +2,7 @@
 
 use App\Events\PresenceEvent;
 use App\Events\PrivateEvent;
+use App\Events\PublicEvent;
 use App\Events\UserUpdated;
 use App\Models\Group;
 use BeyondCode\LaravelWebSockets\Models\WebSocketsStatisticsEntry;
@@ -25,7 +26,7 @@ Route::get('/', function () {
 
 Route::get('/color', function () {
     return view('color-picker');
-});
+})->name('color');
 
 Route::post('/fireEvent', function (Request $request) {
 
@@ -45,7 +46,7 @@ Route::middleware('auth')->group(function () {
         '/private/fireEvent',
         function () {
             // faking file upload
-            sleep(3);
+            sleep(rand(1,3));
             PrivateEvent::dispatch('Your cv has been uploaded');
         }
         )->name('fire.private.event');
@@ -59,11 +60,12 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/dashboard/{group}', function (Request $request, Group $group) {
 
-            abort_unless($request->user()->canJoinGroup($group->id), 401);
+            abort_unless($request->user()->canJoinGroup($group->id), 403);
             return view('group', compact('group'));
         }
         )->name('group');
 
         Route::get('/presence/fireEvent/{message}', fn() => PresenceEvent::dispatch())->name('fire.presence.event');
     });
-require __DIR__ . '/auth.php';
+
+    \Illuminate\Support\Facades\Auth::routes();

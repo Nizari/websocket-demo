@@ -51,13 +51,15 @@
     </div>
 
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    <script>
+
+    <script> // the change is here
+
     function init() {
         this.currentUserId = "{{auth()->user()->id}}"
 
-
+        console.log('resources/views/group.blade.php#61', 'PRESENCE');
         channel = Echo.join(`presence.{{$group->id}}`)
 
         this.changeState = (state) => {

@@ -32,8 +32,9 @@
     </div>
 
 
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script>
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script> // the change is here
     async function upload() {
 
         this.loading = true
@@ -44,8 +45,13 @@
             }
         }).then(res => this.loading = false)
     }
+    </script>
+    <script type="module"> // the change is here
     Echo.private('private.{{auth()->user()->id}}')
-        .listen('PrivateEvent', (e) => document.getElementById('message').innerText = e.message);
+        .listen('PrivateEvent', (e) => {
+            console.log('resources/views/dashboard.blade.php#50', e);
+            document.getElementById('message').innerText = e.message
+        });
     </script>
 
 </x-app-layout>

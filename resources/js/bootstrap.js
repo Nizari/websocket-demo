@@ -38,14 +38,3 @@ window.Echo = new Echo({
     // enabledTransports: ['ws', 'wss'],
     cluster: 'mt1' // pusher specific
 });
-
-
-window.Echo.channel('users')
-        .listen('UserUpdated', e => {
-            console.log('resources/js/bootstrap.js#38', e);
-        });
-
-Echo.channel('public')
-    .listen('PublicEvent', (e) => {
-        document.getElementById('svg').setAttribute('fill', e.color);
-});

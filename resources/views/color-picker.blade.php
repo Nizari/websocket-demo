@@ -408,17 +408,14 @@
 <body class="antialiased">
     <div
         class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-
-
         <input type="color" id="colorPicker">
-
     </div>
 
-    <script src="{{ asset('js/app.js') }}"></script>
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
     <script>
     let colorPicker = document.getElementById('colorPicker');
     colorPicker.addEventListener('input', async function() {
-
         axios.post("{{route('fire.public.event')}}", {
             color: colorPicker.value
         }, {
