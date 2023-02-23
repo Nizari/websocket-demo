@@ -19,10 +19,13 @@ class ConfigAppManager extends BaseManager
                 'host' => Str::after($client->host, '//'),
                 'key' => $client->key,
                 'secret' => $client->secret,
+                'path' => env('PUSHER_APP_PATH'),
                 'capacity' => null,
                 'enable_client_messages' => false,
-                'enable_statistics' => false,
-                'allowed_origins' => [],
+                'enable_statistics' => true,
+                'allowed_origins' => [
+                    // env('LARAVEL_WEBSOCKETS_DOMAIN'),
+                ],
             ];
         });
     }

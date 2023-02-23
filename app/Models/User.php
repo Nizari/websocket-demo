@@ -49,4 +49,10 @@ class User extends Authenticatable
         return $this->hasMany(Message::class);
     }
 
+    public function canJoinGroup(int $groupId): bool
+    {
+    return $this->group_id == $groupId;
+    }
+
+
 }

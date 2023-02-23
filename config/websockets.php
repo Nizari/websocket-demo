@@ -12,13 +12,18 @@ return [
     */
 
     'dashboard' => [
+
         'port' => env('LARAVEL_WEBSOCKETS_PORT', 6001),
+
         'domain' => env('LARAVEL_WEBSOCKETS_DOMAIN'),
-        'path' => env('LARAVEL_WEBSOCKETS_PATH', 'laravel-websockets'),
+
+        'path' => env('LARAVEL_WEBSOCKETS_PATH', 'websockets'),
+
         'middleware' => [
             'web',
-            \BeyondCode\LaravelWebSockets\Dashboard\Http\Middleware\Authorize::class,
+            // 'auth.http:' . env('TELESCOPE_BASIC_AUTH_USERNAME') . ',' . env('TELESCOPE_BASIC_AUTH_PASSWORD'),
         ],
+
     ],
 
     'managers' => [
@@ -37,7 +42,7 @@ return [
         |
         */
 
-        'app' => \App\Services\WebSockets\ConfigAppManager::class,
+        'app' => \BeyondCode\LaravelWebSockets\Apps\ConfigAppManager::class,
 
     ],
 
@@ -58,16 +63,16 @@ return [
 
     'apps' => [
         [
-            'id' => env('PUSHER_APP_ID'),
-            'name' => env('APP_NAME'),
-            'host' => env('PUSHER_HOST'),
-            'key' => env('PUSHER_APP_KEY'),
-            'secret' => env('PUSHER_APP_SECRET'),
-            'path' => env('PUSHER_APP_PATH'),
-            'capacity' => null,
+            'id'                     => env('PUSHER_APP_ID'),
+            'name'                   => env('APP_NAME'),
+            'host'                   => env('PUSHER_APP_HOST'),
+            'key'                    => env('PUSHER_APP_KEY'),
+            'secret'                 => env('PUSHER_APP_SECRET'),
+            'path'                   => env('PUSHER_APP_PATH'),
+            'capacity'               => null,
             'enable_client_messages' => false,
-            'enable_statistics' => true,
-            'allowed_origins' => [
+            'enable_statistics'      => true,
+            'allowed_origins'        => [
                 // env('LARAVEL_WEBSOCKETS_DOMAIN'),
             ],
         ],
